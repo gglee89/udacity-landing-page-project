@@ -53,10 +53,11 @@ const buildMenu = () => {
 }
 
 /**
- * @description Add class 'active' to section when near top of viewport
+ * @description Add class 'your-active-class' to section when near top of viewport
  */
-const handleSetSectionAsActive = () => {
+const handleSetSectionAsActive = menuLinks => {
     let sectionsNode = [];
+
     for (let i = 0; i < sections.length; i++) {
         sectionsNode.push(sections[i]);
     }
@@ -68,7 +69,14 @@ const handleSetSectionAsActive = () => {
             if (scrollTop >= sectionNode.offsetTop - sectionNode.clientHeight &&
                 scrollTop < sectionNode.offsetTop) {
                     removeAllElementNodeClasses(sections, 'your-active-class')
+                    removeAllElementNodeClasses(menuLinks, 'is-active');
+
                     sectionNode.classList.add('your-active-class');
+                    menuLinks.forEach(menuLink => {
+                        if (menuLink.getAttribute('data-nav') == sectionNode.id) {
+                            menuLink.classList.add('is-active');
+                        }
+                    });
             }
         });
     });
@@ -94,6 +102,7 @@ const handleScrollToSection = (dataNav) => {
  *
 */
 doc.addEventListener('DOMContentLoaded', () => {
+
     // Build menu
     buildMenu();
 
@@ -101,10 +110,7 @@ doc.addEventListener('DOMContentLoaded', () => {
     const menuLinks = doc.querySelectorAll('.menu__link');
     menuLinks.forEach(menuLink => {
         menuLink.addEventListener('click', e => {
-            removeAllElementNodeClasses(menuLinks, 'is-active');
-
             let target = e.target;
-            target.classList.add('is-active');
 
             const dataNav = target.getAttribute('data-nav');
             handleScrollToSection(dataNav);
@@ -112,7 +118,7 @@ doc.addEventListener('DOMContentLoaded', () => {
     });
 
     // Set sections as active
-    handleSetSectionAsActive();
+    handleSetSectionAsActive(menuLinks);
 });
 
 
