@@ -23,6 +23,8 @@ const doc = document;
 const sections = doc.querySelectorAll('section');
 const navbarList = doc.querySelector('#navbar__list');
 const navbarElementHeader = doc.querySelector('.page__header');
+const scrollTopBtn = doc.querySelector('.scroll-top')
+
 let navbarIimeout = {};
 
 /**
@@ -72,6 +74,9 @@ const handleSetSectionAsActive = menuLinks => {
         clearTimeout(navbarIimeout);
         setNavigationBarTimeout();
 
+        // Toggle Scroll Back to Top Button
+        showScrollBackToTopButton(scrollTop >= sectionsNode[0].offsetTop);
+
         sectionsNode.map(sectionNode => {
             if (scrollTop >= sectionNode.offsetTop - sectionNode.clientHeight &&
                 scrollTop < sectionNode.offsetTop) {
@@ -113,6 +118,26 @@ const setNavigationBarTimeout = () => {
 }
 
 /**
+ * @description Scroll back to Top
+ */
+const scrollBackToTop = () => {
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+const showScrollBackToTopButton = (isVisible = true) => {
+    if (isVisible) {
+        scrollTopBtn.classList.add('is-visible');
+    } else {
+        scrollTopBtn.classList.remove('is-visible');
+    }
+}
+
+/**
  * End Main Functions
  * Begin Events
  *
@@ -138,6 +163,9 @@ doc.addEventListener('DOMContentLoaded', () => {
 
     // Hide navigation bar when not scrolling
     setNavigationBarTimeout();
+
+    // Set scroll back to top button event
+    scrollBackToTop();
 });
 
 
