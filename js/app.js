@@ -22,6 +22,8 @@
 const doc = document;
 const sections = doc.querySelectorAll('section');
 const navbarList = doc.querySelector('#navbar__list');
+const navbarElementHeader = doc.querySelector('.page__header');
+let navbarIimeout = {};
 
 /**
  * End Global Variables
@@ -65,6 +67,11 @@ const handleSetSectionAsActive = menuLinks => {
     doc.addEventListener('scroll', e => {
         const scrollTop = doc.documentElement.scrollTop;
 
+        // Toggle Navigation Bar
+        navbarElementHeader.classList.remove('is-hidden');
+        clearTimeout(navbarIimeout);
+        setNavigationBarTimeout();
+
         sectionsNode.map(sectionNode => {
             if (scrollTop >= sectionNode.offsetTop - sectionNode.clientHeight &&
                 scrollTop < sectionNode.offsetTop) {
@@ -97,6 +104,15 @@ const handleScrollToSection = (dataNav) => {
 }
 
 /**
+ * @description Hide navigation bar when not scrolling
+ */
+const setNavigationBarTimeout = () => {
+    navbarIimeout = setTimeout(() => {
+        navbarElementHeader.classList.add('is-hidden');
+    }, 3000);
+}
+
+/**
  * End Main Functions
  * Begin Events
  *
@@ -119,6 +135,9 @@ doc.addEventListener('DOMContentLoaded', () => {
 
     // Set sections as active
     handleSetSectionAsActive(menuLinks);
+
+    // Hide navigation bar when not scrolling
+    setNavigationBarTimeout();
 });
 
 

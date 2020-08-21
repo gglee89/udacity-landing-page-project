@@ -96,11 +96,18 @@ section {
 
 /* Header Styles */
 .page__header {
+    transition: transform 500ms linear;
     background: #fff;
     position: fixed;
+    transform: translateY(0%);
     top: 0;
     width: 100%;
     z-index: 5;
+}
+
+.page__header.is-hidden {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
 }
 
 /* Footer Styles */
