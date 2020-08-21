@@ -12,20 +12,20 @@
  * JS Standard: ESlint
  * 
 */
-console.log('hello world');
+
 /**
  * Define Global Variables
  * 
 */
-
+const doc = document;
+const sections = doc.querySelectorAll('section');
+const navbarList = doc.querySelector('#navbar__list');
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
-
-
 
 /**
  * End Helper Functions
@@ -34,6 +34,12 @@ console.log('hello world');
 */
 
 // build the nav
+sections.forEach((section) => {
+    // console.log(section.dataset.nav);    
+    const menuItem = document.createElement('div');
+    menuItem.innerText = section.dataset.nav;
+    navbarList.appendChild(menuItem);
+});
 
 
 // Add class 'active' to section when near top of viewport
