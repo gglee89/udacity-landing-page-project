@@ -14,7 +14,7 @@ My role for this course, besides going through the lessons and projects, were to
 
 ## Instructions
 
-To get started, open `js/app.js` and start building out the app's functionality
+To get started, open `index.html`
 
 ## Features Included
 
